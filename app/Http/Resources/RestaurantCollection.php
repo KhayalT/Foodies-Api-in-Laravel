@@ -28,6 +28,7 @@ class RestaurantCollection extends JsonResource
                 'No already review',
             'links' => [
                 'Reviews' => $this->review->count() > 0 ? route('review.index', $this->id) : 'No Review',
+                'Make Review' => route('review.store', $this->id),
             ],
         ];
     }

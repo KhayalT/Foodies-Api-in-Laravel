@@ -22,5 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('restaurant', [RestaurantController::class, 'index']);
 Route::post('restaurant', [RestaurantController::class, 'store']);
-Route::post('review', [ReviewController::class, 'store'])->name('review.store')->middleware('auth:api');
 Route::get('review/{id}', [ReviewController::class, 'index'])->name('review.index');
+Route::post('review/{id}', [ReviewController::class, 'store'])->name('review.store')->middleware('auth:api');

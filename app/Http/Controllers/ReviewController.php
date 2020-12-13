@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReviewController extends Controller
 {
@@ -16,7 +17,7 @@ class ReviewController extends Controller
         return ReviewResource::collection($reviews);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $request->validate([
             'review' => 'required|min:50|max:510',
@@ -24,12 +25,12 @@ class ReviewController extends Controller
         ]);
 
         $review = new Review;
-        $review->restaurant_id = $request->restaurant_id;
+        $review->restaurant_id = $id;
         $review->user_id = Auth::user()->id;
         $review->review = $request->review;
         $review->star = $request->star;
         $review->created_at = now();
         $review->save();
-        return new ReviewResource($review);
+        return response()->json(['data' => new ReviewResource($review)], Response::HTTP_CREATED);
     }
 }
