@@ -17,7 +17,8 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('restaurant_id')->index();
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-            $table->string('customer');
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('review');
             $table->integer('star');
             $table->timestamps();

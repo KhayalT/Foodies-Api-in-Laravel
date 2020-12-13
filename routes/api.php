@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('restaurant', [RestaurantController::class, 'index']);
 Route::post('restaurant', [RestaurantController::class, 'store']);
+Route::post('review', [ReviewController::class, 'store'])->name('review.store')->middleware('auth:api');
+Route::get('review/{id}', [ReviewController::class, 'index'])->name('review.index');

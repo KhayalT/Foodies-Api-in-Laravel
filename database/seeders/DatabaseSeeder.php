@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // Restaurant::factory(10)->create();
         // Tag::factory(10)->create();
         // Restaurant_Tag::factory(100)->create();
-        // Review::factory(50)->create();
+        // Review::factory(100)->create();
         // User::factory(50)->create();
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Restaurant;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReviewFactory extends Factory
@@ -26,7 +27,9 @@ class ReviewFactory extends Factory
             'restaurant_id' => function () {
                 return Restaurant::all()->random();
             },
-            'customer' => $this->faker->name,
+            'user_id' => function () {
+                return User::all()->random();
+            },
             'review' => $this->faker->paragraph(2),
             'star' => $this->faker->numberBetween(1, 5),
         ];

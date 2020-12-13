@@ -25,7 +25,10 @@ class RestaurantCollection extends JsonResource
             'Average Delivery' => $this->delivery_time,
             'Comments' => $this->review->count(),
             'star' => $this->review->count() > 0 ? round(($this->review->sum('star') / $this->review->count()), 2) :
-                'No already review'
+                'No already review',
+            'links' => [
+                'Reviews' => $this->review->count() > 0 ? route('review.index', $this->id) : 'No Review',
+            ],
         ];
     }
 }
