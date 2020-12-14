@@ -29,6 +29,8 @@ class RestaurantCollection extends JsonResource
             'links' => [
                 'Reviews' => $this->review->count() > 0 ? route('review.index', $this->id) : 'No Review',
                 'Make Review' => route('review.store', $this->id),
+                'Make Restaurant' => route('restaurant.store'),
+                'Get Tag' => route('restaurant.tag', $this->id),
             ],
         ];
     }
