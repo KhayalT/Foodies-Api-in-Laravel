@@ -12,7 +12,7 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        $restaurant = Restaurant::orderBy('created_at', 'desc')->get();
+        $restaurant = Restaurant::orderBy('created_at', 'desc')->paginate(12);
         return RestaurantCollection::collection($restaurant);
     }
 
