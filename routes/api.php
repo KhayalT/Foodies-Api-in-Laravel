@@ -26,6 +26,8 @@ Route::post('restaurant', [RestaurantController::class, 'store'])->name('restaur
 Route::get('restaurant/{id}/review', [ReviewController::class, 'index'])->name('review.index');
 Route::get('users', [ProfileController::class, 'index'])->name('user.index');
 Route::get('user/{id}', [ProfileController::class, 'show'])->name('user.show');
+Route::put('user/{id}', ProfileController::class, 'update')->name('user.update');
+Route::delete('user/{id}', ProfileController::class, 'delete')->name('user.delete');
 Route::post('restaurant/{id}/review', [ReviewController::class, 'store'])->name('review.store')->middleware('auth:api');
 Route::post('tag/{id}', [RestaurantController::class, 'storeTag'])->name('restaurant.tag');
 Route::post('tag', [RestaurantController::class], 'index')->name('tag.index');
