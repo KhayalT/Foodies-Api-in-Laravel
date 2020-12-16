@@ -27,11 +27,11 @@ class RestaurantController extends Controller
         ]);
 
         $restaurant = new Restaurant;
-        $restaurant->category_id = $request->category_id;
-        $restaurant->restaurant_name = $request->restaurant_name;
-        $restaurant->image = $request->image;
-        $restaurant->price = $request->price;
-        $restaurant->delivery_time = $request->delivery_time;
+        $restaurant->category_id = $request->get('category_id');
+        $restaurant->restaurant_name = $request->get('restaurant_name');
+        $restaurant->image = $request->get('image');
+        $restaurant->price = $request->get('price');
+        $restaurant->delivery_time = $request->get('delivery_time');
         $restaurant->created_at = now();
 
         $restaurant->save();
@@ -46,7 +46,7 @@ class RestaurantController extends Controller
 
         $restaurant_tag = new Restaurant_Tag;
         $restaurant_tag->restaurant_id = $id;
-        $restaurant_tag->tag_id = $request->tag_id;
+        $restaurant_tag->tag_id = $request->get('tag_id');
 
         $restaurant_tag->save();
         return response()->json(['data' => new RestaurantCollection($restaurant_tag)], 201);

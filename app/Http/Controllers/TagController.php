@@ -21,7 +21,7 @@ class TagController extends Controller
         ]);
 
         $tag = new Tag;
-        $tag->name = $request->name;
+        $tag->name = $request->get('name');
         $tag->created_at = now();
         $tag->save();
 
