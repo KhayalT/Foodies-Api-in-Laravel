@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,14 +22,27 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('restaurant', [RestaurantController::class, 'index']);
-Route::post('restaurant', [RestaurantController::class, 'store'])->name('restaurant.store')->middleware('auth:api', 'admin');
-Route::get('restaurant/{id}/review', [ReviewController::class, 'index'])->name('review.index');
-Route::get('users', [ProfileController::class, 'index'])->name('user.index');
-Route::get('user/{id}', [ProfileController::class, 'show'])->name('user.show');
-Route::put('user/{id}', ProfileController::class, 'update')->name('user.update');
-Route::delete('user/{id}', ProfileController::class, 'delete')->name('user.delete');
-Route::post('restaurant/{id}/review', [ReviewController::class, 'store'])->name('review.store')->middleware('auth:api');
-Route::post('tag/{id}', [RestaurantController::class, 'storeTag'])->name('restaurant.tag');
-Route::post('tag', [RestaurantController::class], 'index')->name('tag.index');
-Route::post('tag', [RestaurantController::class], 'store')->name('tag.store');
+Route::prefix('restaurant')->group(function () {
+    Route::get('/', [RestaurantController::class, 'index']);
+    Route::post('/', [RestaurantController::class, 'store'])->name('restaurant.store')
+        ->middleware('auth:api', 'admin');
+    Route::delete('{id}', [RestaurantController::class, 'destroy'])->name('restaurant.delete')
+        ->middleware('auth:api', 'admin');
+    Route::get('{id}/review', [ReviewController::class, 'index'])->name('review.index');
+    Route::post('{id}/review', [ReviewController::class, 'store'])->name('review.store')
+        ->middleware('auth:api');
+});
+
+Route::prefix('user')->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('user.index');
+    Route::get('{id}', [ProfileController::class, 'show'])->name('user.show');
+    Route::put('{id}', ProfileController::class, 'update')->name('user.update');
+    Route::delete('{id}', ProfileController::class, 'delete')->name('user.delete');
+});
+
+Route::prefix('tag')->group(function () {
+    Route::get('/', [TagController::class, 'index'])->name('tag.index');
+    Route::post('/', [TagController::class, 'store'])->name('tag.store');
+    Route::post('{id}', [RestaurantController::class, 'storeTag'])->name('restaurant.tag');
+    Route::delete('{id}', [TagController::class, 'destroy'])->name('tag.delete');
+});

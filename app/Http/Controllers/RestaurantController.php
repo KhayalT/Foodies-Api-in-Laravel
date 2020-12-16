@@ -51,4 +51,14 @@ class RestaurantController extends Controller
         $restaurant_tag->save();
         return response()->json(['data' => new RestaurantCollection($restaurant_tag)], 201);
     }
+
+    public function destroy($id)
+    {
+        $restaurant = Restaurant::find($id);
+        if (is_null($restaurant)) {
+            return response()->json(['message' => 'Sorry, this restaurant not found!'], 403);
+        }
+        $restaurant->delete();
+        return response()->json(null, 204);
+    }
 }

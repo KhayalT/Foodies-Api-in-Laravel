@@ -27,4 +27,11 @@ class TagController extends Controller
 
         return response()->json(['data' => new TagResource($tag)], 201);
     }
+
+    public function destroy($id)
+    {
+        $tag = Tag::find('id');
+        $tag->delete();
+        return response()->json(null, 204);
+    }
 }

@@ -22,10 +22,11 @@ class CreateTagsTable extends Migration
         Schema::create('restaurant_tag', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('restaurant_id');
-            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
